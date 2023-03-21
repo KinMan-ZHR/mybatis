@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+	mapper		映射配置
+	namespace	命名空间	对应接口的名字
+	xml 位置必须与接口位置相同（编译位置）
+	方法在resource文件夹中创建对应的xml文件
+-->
+<mapper namespace="com.kinman.mybatis.mapper.UserMapper">
+    <!--描述如何从数据库结果集中加载对象，是最复杂也是最强大的元素。-->
+    <!--
+        resultMap
+        id 在命名空间中唯一的标识符
+        type 结果集映射的javabean 或者 泛型为该类型的集合
+        若pojo(javabean)与表的属性不相同的话可以采取结果集映射
+        并将对应操作中的resulType改为resultMap
+          -->
+    <!--    <resultMap id="PersonMap" type="com.lihaozhe.pojo.Person">-->
+    <!--        &lt;!&ndash;-->
+    <!--            id 主键映射-->
+    <!--            result 非主键映射-->
+    <!--            property javabean 中的 filed-->
+    <!--            column datatable 中的 filed-->
+    <!--        &ndash;&gt;-->
+    <!--        <id property="id" column="id"/>-->
+    <!--        <result property="id" column="id"/>-->
+    <!--        <result property="uuid" column="uuid"/>-->
+    <!--        <result property="mobile" column="mobile"/>-->
+    <!--        <result property="nickname" column="nickname"/>-->
+    <!--        <result property="idCard" column="id_card"/>-->
+    <!--    </resultMap>-->
+
+    <!--
+     select  用于查询
+     id      与接口中方法的名字同名 即调用接口中方法的时候 该方法会找到该配置文件中对应的SQL
+     resultType 返回值数据类型 或 泛型为该数据类型的集合
+   -->
+
+    <!--查询用户列表 resultType-->
+
+    <select id="selectAll" resultType="User">
+        select *
+        from table1
+    </select>
+    <!--    <update id="updateUser" >-->
+    <!--        update table1 set name="猫娘" where id=3;-->
+    <!--    </update>-->
+
+
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--     The content of element type "configuration" must match
+        "(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,
+         objectWrapperFactory?,reflectorFactory?,plugins?,environments?,
+         databaseIdProvider?,mappers?)".-->
+<configuration>
+    <!--
+            这些属性可以在外部进行配置，并可以进行动态替换。
+            你既可以在典型的 Java 属性文件中配置这些属性，也可以在 properties 元素的子元素中设置
+        -->
+    <properties resource="jdbc.properties"/>
+    <settings>
+        <!-- log日志 -->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <!--类型别名（不区分大小写，默认alias为类名，可以在mybatis范围类(mapper标签下所有的)使用别名代替）
+            <typeAlias type="d" alias="d"/>
+            或以包为单位，默认包下所有类的别名为类名-->
+    <typeAliases>
+        <package name="com/kinman/mybatis/pojo"/>
+    </typeAliases>
+
+    <!--
+        MyBatis 可以配置成适应多种环境，这种机制有助于将 SQL 映射应用于多种数据库之中， 现实情况下有多种理由需要这么做。
+        例如，开发、测试和生产环境需要有不同的配置；或者想在具有相同 Schema 的多个生产数据库中使用相同的 SQL 映射。还有许多类似的使用场景。
+    -->
+    <!--默认使用的环境 ID（比如：default="development"）。-->
+    <environments default="development">
+        <!--每个 environment 元素定义的环境 ID（比如：id="development"）。-->
+        <environment id="development">
+            <!--事务管理器的配置（比如：type="JDBC"）。-->
+            <!--
+                事务管理器（transactionManager）
+                在 MyBatis 中有两种类型的事务管理器（也就是 type="[JDBC|MANAGED]"）：
+                JDBC – 这个配置直接使用了 JDBC 的提交和回滚设施，它依赖从数据源获得的连接来管理事务作用域。
+                MANAGED – 这个配置几乎没做什么。它从不提交或回滚一个连接，而是让容器来管理事务的整个生命周期（比如 JEE 应用服务器的上下文）。
+                默认情况下它会关闭连接。然而一些容器并不希望连接被关闭，因此需要将 closeConnection 属性设置为 false 来阻止默认的关闭行为。
+                如果你正在使用 Spring + MyBatis，则没有必要配置事务管理器，因为 Spring 模块会使用自带的管理器来覆盖前面的配置。
+                这两种事务管理器类型都不需要设置任何属性。它们其实是类型别名，换句话说，你可以用 TransactionFactory 接口实现类的全限定名或类型别名代替它们。
+            -->
+            <transactionManager type="JDBC"/>
+            <!--数据源的配置（比如：type="POOLED"）-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--
+     mybatis所管辖的映射配置文件
+     在自动查找资源方面，Java 并没有提供一个很好的解决方案，所以最好的办法是直接告诉 MyBatis 到哪里去找映射文件。
+     你可以使用相对于类路径的资源(源根)引用，或完全限定资源定位符（包括 file:/// 形式的 URL），或类名和包名等。
+    -->
+    <mappers>
+        <!-- 使用相对于类路径的资源（源根）引用 -->
+        <!--单独加载某个映射配置文件-->
+        <!--<mapper resource="mappers/UserMapper.xml"/>-->
+        <!-- 使用完全限定资源定位符（URL） -->
+        <!--<mapper url="file:/// D:\programme\JavaLanguage\Learn\mybatis\src\main\resources\mappers\UserMapper.xml"/>-->
+        <!--加载某包下所有的映射配置文件
+        包必须和接口的包的路径一致，且配置文件必须与接口名相同
+        在resource中创建多层文件夹必须使用/不能是. -->
+        <package name="com.kinman.mybatis.mapper"/>
+
+
+    </mappers>
+
+</configuration>
