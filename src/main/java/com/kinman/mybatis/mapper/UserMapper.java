@@ -1,6 +1,7 @@
 package com.kinman.mybatis.mapper;
 
 import com.kinman.mybatis.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,11 @@ public interface UserMapper {
 
     //@Select("SELECT * FROM table1 ")
     List<User> selectAll();
+
+    //注释传参法
+    List<User> selectUser(@Param("id") int id, @Param("name") String name);
+
+    List<User> selectUser(User user);
+
+
 }

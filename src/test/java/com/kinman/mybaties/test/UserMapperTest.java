@@ -44,6 +44,28 @@ public class UserMapperTest {
         // 遍历集合lambda表达式
         people.forEach(System.out::println);
     }
+
+    @Test
+    public void selectUser() {
+        sqlSession = SqlSessionUtils.getSqlSession();
+        // 获取该接口的代理对象反射机制
+        UserMapper mapper = sqlSession.getMapper(UserMapper.class);
+        // 执行接口中的方法（通过接口的配置文件进行执行）
+        //List<User> people = mapper.selectUser(1, "张三");
+//对user实体类进行赋值
+        User user = new User();
+        user.setId(2);
+        user.setName("张三");
+        user.setAge(18);
+        user.setSex("男");
+        user.setEmail("fsdagra@qq.com");
+        List<User> people = mapper.selectUser(user);
+        // 释放SqlSession资源
+        sqlSession.close();
+        // 遍历集合lambda表达式
+        people.forEach(System.out::println);
+    }
+
 }
 
 

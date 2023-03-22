@@ -43,7 +43,14 @@
 
     <select id="selectAll" resultType="User">
         select *
+        from table1;
+    </select>
+
+    <select id="selectUser" resultType="User">
+        select *
         from table1
+        where id = #{id}
+           or name = #{name};
     </select>
     <!--    <update id="updateUser" >-->
     <!--        update table1 set name="猫娘" where id=3;-->
